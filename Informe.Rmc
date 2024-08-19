@@ -92,8 +92,9 @@ Para la presentacion de la informacion se usa la libreria tmap, con el fin de ge
 ```{r, echo=TRUE}
 # Ejemplo con tmap
 tmap_mode("view")
-tm_shape(uso_suelo) + tm_polygons("lightgreen") +
+tm_shape(uso_suelo) + tm_polygons("MAP_COLORS", palette="Greys", alpha = .25) +
   tm_shape(areas_protegidas) + tm_borders("red") +
-  tm_shape(interseccion) + tm_polygons("blue")
+  tm_shape(interseccion) + tm_polygons("blue") +
+  tm_shape(areas_sensibles)+ tm_polygons("yellow")
 ```
 
