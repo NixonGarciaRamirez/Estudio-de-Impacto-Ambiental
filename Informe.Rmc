@@ -4,9 +4,28 @@ author: "Nixon Garcia"
 date: "2024-08-19"
 output: html_document
 ---
+
 ## Introducción
 
 Este informe presenta un análisis de impacto ambiental basado en datos espaciales de uso del suelo y áreas protegidas en la región de estudio.
+
+## Teoria
+
+1.  Análisis de Sensibilidad
+
+    El análisis de sensibilidad en un Estudio de Impacto Ambiental (EIA) se refiere al proceso de identificar y evaluar las áreas o elementos del entorno que son particularmente vulnerables o sensibles a los impactos del proyecto propuesto. Estas áreas son cruciales porque cualquier cambio o alteración puede tener efectos significativos, ya sea por la fragilidad de los ecosistemas, la presencia de especies en peligro, o la importancia social o cultural del área.
+
+-   Objetivo: Determinar cuáles son los componentes más vulnerables del entorno que podrían verse afectados por el proyecto y evaluar cómo varían los impactos en función de diferentes escenarios o condiciones.
+
+-   Ejemplo: En un proyecto de construcción de una carretera, un análisis de sensibilidad podría centrarse en áreas con alta biodiversidad o en zonas que son hábitats críticos para especies protegidas.
+
+2.  Evaluación de Impacto
+
+    La evaluación de impacto se basa en el análisis de sensibilidad y se enfoca en cuantificar y cualificar los posibles efectos del proyecto sobre las áreas sensibles identificadas. Este proceso incluye:
+
+-   Identificación de Impactos: Determinar qué tipos de impactos (positivos o negativos) podrían ocurrir en las áreas sensibles. Estos impactos pueden ser físicos (erosión, contaminación), biológicos (pérdida de hábitats, disminución de especies), o sociales (desplazamiento de comunidades, afectación a sitios culturales).
+
+-   Valoración de Impactos: Evaluar la magnitud, duración y reversibilidad de los impactos. Por ejemplo, un impacto podría ser de corta duración y fácilmente mitigable, o podría ser severo y tener efectos a largo plazo.
 
 ## Datos
 
@@ -39,7 +58,8 @@ plot(st_geometry(interseccion), add = TRUE, col = 'blue')
 
 ```
 
-## Resultados  
+## Resultados
+
 El análisis espacial reveló que las áreas protegidas y el uso del suelo se superponen en las siguientes regiones:
 
 ```{r, echo=TRUE}
@@ -65,9 +85,9 @@ areas_sensibles <- st_difference(uso_suelo2, areas_protegidas)
 plot(st_geometry(areas_sensibles), col = 'yellow', main = "Áreas Sensibles")
 ```
 
+En el contexto de un EIA, usar st_difference permite identificar áreas donde el uso del suelo actual puede estar en conflicto con la conservación ambiental, aunque estas áreas no estén formalmente protegidas. Al analizar estas áreas "no protegidas", se puede evaluar cómo un proyecto podría afectar negativamente a zonas que, aunque no estén protegidas por ley, son cruciales para la biodiversidad o para la comunidad local.
 
 Para la presentacion de la informacion se usa la libreria tmap, con el fin de generar un mapa interactivo para el ususario
-
 
 ```{r, echo=TRUE}
 # Ejemplo con tmap
@@ -76,3 +96,4 @@ tm_shape(uso_suelo) + tm_polygons("lightgreen") +
   tm_shape(areas_protegidas) + tm_borders("red") +
   tm_shape(interseccion) + tm_polygons("blue")
 ```
+
