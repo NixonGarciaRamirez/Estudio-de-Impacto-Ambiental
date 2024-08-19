@@ -1,0 +1,78 @@
+---
+title: "Informe Impacto Ambiental"
+author: "Nixon Garcia"
+date: "2024-08-19"
+output: html_document
+---
+## Introducción
+
+Este informe presenta un análisis de impacto ambiental basado en datos espaciales de uso del suelo y áreas protegidas en la región de estudio.
+
+## Datos
+
+Los datos fueron obtenidos de fuentes oficiales y consisten en shapefiles que representan el uso del suelo y las áreas protegidas.
+
+```{r, echo=TRUE}
+library(sf)
+library(ggplot2)
+library(tmap)
+
+
+# Cargar datos
+uso_suelo <- st_read("D:/NIXON/MI MUNDO PROPIO/08 SIG/R CON GEE/Libreria SF/Proyecto/Uso o vocacion del suelo.shp")
+areas_protegidas <- st_read("D:/NIXON/MI MUNDO PROPIO/08 SIG/R CON GEE/Libreria SF/Proyecto/Area protegida.shp")
+
+# Vizualizar datos cargados
+plot(uso_suelo)
+plot(areas_protegidas)
+uso_suelo2 <- st_transform(uso_suelo , crs = 3116)
+
+# Intersección de datos
+interseccion <- st_intersection(uso_suelo2, areas_protegidas)
+
+
+
+# Visualizar la intersección
+plot(st_geometry(uso_suelo2), col = 'lightgreen', main = "Uso del Suelo y Áreas Protegidas")
+plot(st_geometry(areas_protegidas), add = TRUE, border = 'red')
+plot(st_geometry(interseccion), add = TRUE, col = 'blue')
+
+```
+
+## Resultados  
+El análisis espacial reveló que las áreas protegidas y el uso del suelo se superponen en las siguientes regiones:
+
+```{r, echo=TRUE}
+# Mostrar resultados en forma de tabla
+summary(interseccion)
+
+# Gráfico con ggplot2
+ggplot() +
+  geom_sf(data = uso_suelo, fill = 'lightgreen') +
+  geom_sf(data = areas_protegidas, fill = NA, color = 'red') +
+  geom_sf(data = interseccion, fill = 'blue') +
+  labs(title = "Superposición de Uso del Suelo y Áreas Protegidas")
+```
+
+Ademas de eso se pueden evidenciar las sonas sencibles empleando una diferenciacion poligonal de las areas
+
+```{r, echo=TRUE}
+# Ejemplo de identificación de áreas sensibles
+areas_sensibles <- st_difference(uso_suelo2, areas_protegidas)
+
+
+# vixualizacion de areas sencibles
+plot(st_geometry(areas_sensibles), col = 'yellow', main = "Áreas Sensibles")
+```
+
+
+Para la presentacion de la informacion se usa la libreria tmap, con el fin de generar un mapa interactivo para el ususario
+
+
+```{r, echo=TRUE}
+# Ejemplo con tmap
+tmap_mode("view")
+tm_shape(uso_suelo) + tm_polygons("lightgreen") +
+  tm_shape(areas_protegidas) + tm_borders("red") +
+  tm_shape(interseccion) + tm_polygons("blue")
+```
