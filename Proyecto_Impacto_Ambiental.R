@@ -21,3 +21,11 @@ interseccion <- st_intersection(uso_suelo2, areas_protegidas)
 plot(st_geometry(uso_suelo2), col = 'lightgreen', main = "Uso del Suelo y Áreas Protegidas")
 plot(st_geometry(areas_protegidas), add = TRUE, border = 'red')
 plot(st_geometry(interseccion), add = TRUE, col = 'blue')
+
+
+# Ejemplo de identificación de áreas sensibles
+areas_sensibles <- st_difference(uso_suelo2, areas_protegidas)
+
+
+# vixualizacion de areas sencibles
+plot(st_geometry(areas_sensibles), col = 'yellow', main = "Áreas Sensibles")
