@@ -59,5 +59,4 @@
      ```
      - **Teoría**: Los mapas temáticos permiten una comprensión visual clara de dónde se encuentran los impactos potenciales y ayudan a comunicar información compleja de manera accesible.
 
-### Conclusión
-El código que te he proporcionado sigue estos principios teóricos y está diseñado para llevar a cabo un análisis espacial detallado que pueda informar un Estudio de Impacto Ambiental. Este proceso involucra cargar datos relevantes, analizar interacciones entre diferentes capas espaciales, identificar áreas sensibles, y finalmente visualizar los resultados de manera efectiva. Todo esto se realiza para asegurar que los impactos ambientales de un proyecto sean evaluados y gestionados adecuadamente antes de su implementación.
+
